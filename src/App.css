@@ -405,7 +405,6 @@
   background:
     linear-gradient(180deg, rgba(245, 184, 46, 0.16), transparent),
     url('/academy/panels/cockpit-preview.webp'),
-    url('/academy/backgrounds/section-04-cockpit.webp'),
     radial-gradient(circle at center, #102333, #03070d);
   background-size: cover;
   background-position: center;
