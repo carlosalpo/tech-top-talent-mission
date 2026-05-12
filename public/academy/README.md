@@ -7,6 +7,7 @@ Coloca aqui los visuales finales del dashboard. El codigo ya referencia estos no
 | Archivo | Uso | Tamano recomendado |
 | --- | --- | --- |
 | `backgrounds/section-01-hero.webp` | Fondo espacial general de la pantalla principal | `2400 x 1350 px` |
+| `brand/tech-top-talent-mark.png` | Icono/logo circular de Tech Top Talent en la esquina superior izquierda | `512 x 512 px` |
 | `missions/mission-01-bg.webp` | Fondo interno de la tarjeta 01 | `640 x 900 px` |
 | `missions/mission-02-bg.webp` | Fondo interno de la tarjeta 02 | `640 x 900 px` |
 | `missions/mission-03-bg.webp` | Fondo interno de la tarjeta 03 | `640 x 900 px` |

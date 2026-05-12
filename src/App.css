@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800;900&family=Rajdhani:wght@500;600;700&display=swap');
+
 :root {
   --gold: #f5b82e;
   --gold-soft: rgba(245, 184, 46, 0.18);
@@ -8,12 +10,15 @@
   --panel-strong: rgba(4, 12, 20, 0.92);
   --line: rgba(139, 214, 241, 0.36);
   --text-soft: #c7d2de;
+  --display-font: 'Orbitron', 'Rajdhani', 'Trebuchet MS', system-ui, sans-serif;
+  --body-font: 'Rajdhani', 'Trebuchet MS', system-ui, sans-serif;
 }
 
 .academy-shell {
   min-height: 100vh;
   padding: 10px;
   color: #f7fbff;
+  font-family: var(--body-font);
   background:
     radial-gradient(circle at 16% 24%, rgba(78, 174, 255, 0.24), transparent 26%),
     radial-gradient(circle at 78% 22%, rgba(245, 184, 46, 0.16), transparent 22%),
@@ -67,7 +72,7 @@
 .hud-header {
   display: grid;
   grid-template-columns: minmax(260px, 0.9fr) minmax(300px, 1.1fr) minmax(260px, 0.9fr);
-  gap: 24px;
+  gap: 18px;
   align-items: start;
   padding: 16px 28px 0;
 }
@@ -79,26 +84,29 @@
 .viewport-panel,
 .comms-panel {
   border: 1px solid var(--line);
-  background: linear-gradient(180deg, rgba(9, 25, 36, 0.86), rgba(4, 12, 19, 0.62));
+  background:
+    linear-gradient(135deg, rgba(139, 214, 241, 0.12), transparent 18%),
+    linear-gradient(180deg, rgba(9, 25, 36, 0.9), rgba(4, 12, 19, 0.66));
   backdrop-filter: blur(10px);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.035), 0 0 26px rgba(45, 184, 240, 0.08);
 }
 
 .brand-panel,
 .profile-panel {
   display: flex;
-  min-height: 96px;
+  min-height: 92px;
   align-items: center;
   gap: 20px;
   padding: 18px 22px;
 }
 
 .brand-panel {
-  clip-path: polygon(6% 0, 100% 0, 88% 100%, 0 100%, 0 18%);
+  clip-path: polygon(4% 0, 100% 0, 88% 100%, 0 100%, 0 18%);
 }
 
 .profile-panel {
   justify-content: flex-start;
-  clip-path: polygon(12% 0, 100% 0, 100% 82%, 94% 100%, 0 100%, 0 20%);
+  clip-path: polygon(12% 0, 100% 0, 100% 84%, 94% 100%, 0 100%, 0 18%);
 }
 
 .brand-emblem {
@@ -109,13 +117,30 @@
   border: 1px solid rgba(255, 255, 255, 0.65);
   border-radius: 50%;
   color: #f7fbff;
+  overflow: hidden;
+}
+
+.brand-emblem img {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+}
+
+.brand-emblem img.asset-missing {
+  display: none;
+}
+
+.brand-emblem img.asset-missing + .fallback-icon {
+  display: grid;
 }
 
 .brand-panel strong {
   display: block;
   color: var(--gold);
+  font-family: var(--display-font);
   font-size: clamp(1.25rem, 2vw, 1.95rem);
   line-height: 1;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
 }
 
@@ -137,6 +162,8 @@
 
 .profile-panel strong {
   display: block;
+  font-family: var(--display-font);
+  letter-spacing: 0.04em;
   text-transform: uppercase;
 }
 
@@ -152,6 +179,7 @@
   justify-content: center;
   gap: 42px;
   color: var(--gold);
+  font-family: var(--display-font);
   font-size: clamp(1rem, 1.5vw, 1.3rem);
   font-weight: 900;
   letter-spacing: 0.16em;
@@ -167,13 +195,14 @@
 
 .hero-copy {
   max-width: 1200px;
-  margin: 34px auto 26px;
+  margin: 30px auto 22px;
   text-align: center;
 }
 
 .hero-copy h1 {
   margin: 0;
   color: var(--gold);
+  font-family: var(--display-font);
   font-size: clamp(3rem, 6vw, 5.35rem);
   line-height: 0.95;
   text-transform: uppercase;
@@ -183,6 +212,7 @@
 .hero-copy p {
   margin: 20px 0 0;
   color: #f1f5fb;
+  font-family: var(--display-font);
   font-size: clamp(1rem, 1.8vw, 1.55rem);
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -193,8 +223,9 @@
   align-items: center;
   justify-content: center;
   gap: 24px;
-  margin-top: 44px;
+  margin-top: 36px;
   color: var(--gold);
+  font-family: var(--display-font);
   font-size: clamp(1rem, 1.8vw, 1.55rem);
   font-weight: 900;
   letter-spacing: 0.08em;
@@ -211,7 +242,7 @@
   display: grid;
   grid-template-columns: repeat(4, minmax(220px, 1fr));
   gap: clamp(20px, 2.8vw, 44px);
-  width: min(100%, 1450px);
+  width: min(100%, 1340px);
   margin: 0 auto;
   padding: 0 clamp(44px, 5vw, 78px);
 }
@@ -237,14 +268,15 @@
 
 .mission-content {
   position: absolute;
-  inset: 12% 12% 8%;
+  inset: 5.7% 11% 10.5%;
   z-index: 1;
-  display: flex;
+  display: grid;
   min-height: 0;
-  flex-direction: column;
+  grid-template-rows: minmax(34px, 0.38fr) minmax(90px, 0.86fr) auto minmax(70px, 0.78fr) minmax(42px, 0.34fr);
+  gap: clamp(4px, 0.7vw, 12px);
   align-items: center;
-  justify-content: space-between;
-  padding: clamp(8px, 1vw, 16px) clamp(6px, 1vw, 14px) clamp(10px, 1vw, 16px);
+  justify-items: center;
+  padding: clamp(4px, 0.7vw, 10px) clamp(8px, 1.1vw, 18px) clamp(4px, 0.8vw, 12px);
 }
 
 .mission-tile.selected {
@@ -264,23 +296,33 @@
 }
 
 .mission-number {
-  display: block;
-  min-height: clamp(34px, 3.1vw, 48px);
-  color: transparent;
-  font-size: 0;
+  display: inline-grid;
+  min-width: clamp(42px, 4.1vw, 64px);
+  min-height: clamp(30px, 3vw, 44px);
+  place-items: center;
+  align-self: start;
+  border: 1px solid color-mix(in srgb, var(--accent) 76%, transparent);
+  border-radius: 6px;
+  background: rgba(2, 10, 16, 0.78);
+  color: var(--accent);
+  font-family: var(--display-font);
+  font-size: clamp(1.05rem, 1.65vw, 1.55rem);
   font-weight: 900;
+  letter-spacing: 0.05em;
   line-height: 1;
+  box-shadow: 0 0 18px color-mix(in srgb, var(--accent) 24%, transparent);
 }
 
 .mission-art {
   display: grid;
-  min-height: clamp(58px, 7vw, 104px);
+  min-height: clamp(88px, 8.6vw, 128px);
   place-items: center;
+  align-self: start;
 }
 
 .mission-art img {
-  width: clamp(58px, 6.2vw, 96px);
-  height: clamp(58px, 6.2vw, 96px);
+  width: clamp(86px, 8vw, 126px);
+  height: clamp(86px, 8vw, 126px);
   object-fit: contain;
 }
 
@@ -297,35 +339,41 @@
 }
 
 .fallback-icon .icon {
-  width: clamp(58px, 6.2vw, 94px);
-  height: clamp(58px, 6.2vw, 94px);
+  width: clamp(86px, 8vw, 126px);
+  height: clamp(86px, 8vw, 126px);
 }
 
 .mission-tile h2 {
-  margin: clamp(8px, 1vw, 16px) 0 clamp(6px, 0.8vw, 12px);
-  font-size: clamp(0.9rem, 1.15vw, 1.22rem);
+  align-self: end;
+  margin: 0;
+  font-family: var(--display-font);
+  font-size: clamp(0.9rem, 1vw, 1.14rem);
   line-height: 1.17;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
   text-wrap: balance;
 }
 
 .mission-tile p {
+  align-self: start;
   margin: 0;
   color: #f4f6fa;
-  font-size: clamp(0.7rem, 0.76vw, 0.86rem);
-  line-height: 1.55;
+  font-size: clamp(0.74rem, 0.8vw, 0.9rem);
+  font-weight: 600;
+  line-height: 1.38;
   text-wrap: balance;
 }
 
 .mission-tile button {
-  width: min(100%, 210px);
-  min-height: clamp(36px, 3vw, 44px);
-  margin-top: clamp(12px, 1.4vw, 20px);
+  align-self: end;
+  width: min(100%, 190px);
+  min-height: clamp(34px, 2.7vw, 42px);
+  margin-top: 0;
   border: 1px solid var(--accent);
   border-radius: 4px;
   background: rgba(3, 13, 20, 0.36);
   color: var(--accent);
-  font: inherit;
+  font-family: var(--display-font);
   font-size: clamp(0.74rem, 0.9vw, 0.95rem);
   font-weight: 900;
   letter-spacing: 0.06em;
@@ -339,9 +387,10 @@
 
 .lower-console {
   display: grid;
-  grid-template-columns: 1fr 1.45fr 1fr;
-  gap: 16px;
-  padding: 22px clamp(28px, 4vw, 58px) 58px;
+  grid-template-columns: minmax(330px, 0.95fr) minmax(520px, 1.25fr) minmax(330px, 0.95fr);
+  gap: 18px;
+  align-items: end;
+  padding: 20px clamp(34px, 4vw, 58px) 24px;
 }
 
 .progress-panel,
@@ -349,7 +398,12 @@
 .comms-panel {
   min-height: 150px;
   padding: 18px;
-  clip-path: polygon(0 0, 95% 0, 100% 16%, 100% 84%, 95% 100%, 0 100%);
+  border: 1px solid rgba(125, 192, 221, 0.38);
+  background:
+    linear-gradient(135deg, rgba(139, 214, 241, 0.1), transparent 18%),
+    linear-gradient(180deg, rgba(8, 25, 36, 0.84), rgba(3, 11, 18, 0.78));
+  clip-path: polygon(0 0, 92% 0, 100% 18%, 100% 82%, 94% 100%, 6% 100%, 0 84%);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.035);
 }
 
 .progress-panel > strong,
@@ -357,6 +411,7 @@
   display: block;
   margin-bottom: 14px;
   color: #ffffff;
+  font-family: var(--display-font);
   font-size: 0.88rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -364,23 +419,45 @@
 
 .progress-row {
   display: grid;
-  grid-template-columns: 112px 1fr;
+  grid-template-columns: 122px 1fr;
   gap: 16px;
   align-items: center;
 }
 
 .progress-ring {
   display: grid;
-  width: 104px;
+  position: relative;
+  width: 116px;
   aspect-ratio: 1;
   place-items: center;
   border-radius: 50%;
-  background: conic-gradient(var(--gold) var(--progress), rgba(125, 192, 221, 0.12) 0);
-  box-shadow: inset 0 0 0 10px rgba(4, 12, 20, 0.9);
+  background:
+    radial-gradient(circle, rgba(4, 14, 23, 0.95) 0 48%, transparent 49%),
+    conic-gradient(var(--gold) var(--progress), rgba(125, 192, 221, 0.22) 0);
+  box-shadow: inset 0 0 0 8px rgba(4, 12, 20, 0.9), 0 0 24px rgba(245, 184, 46, 0.12);
+}
+
+.progress-ring::before,
+.progress-ring::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.progress-ring::before {
+  inset: 10px;
+  border: 1px solid rgba(125, 192, 221, 0.28);
+}
+
+.progress-ring::after {
+  inset: -3px;
+  border: 1px solid rgba(245, 184, 46, 0.28);
 }
 
 .progress-ring span {
   color: var(--gold);
+  font-family: var(--display-font);
   font-size: 1.85rem;
   font-weight: 900;
 }
@@ -391,20 +468,21 @@
   margin: 0;
   padding: 0;
   color: #f2f5f7;
-  font-size: 0.78rem;
+  font-size: 0.84rem;
+  font-weight: 700;
   list-style: none;
   text-transform: uppercase;
 }
 
 .viewport-panel {
-  min-height: 150px;
+  min-height: 170px;
   padding: 0;
   overflow: hidden;
   background:
     linear-gradient(180deg, rgba(245, 184, 46, 0.16), transparent),
     url('/academy/panels/cockpit-preview.webp'),
     radial-gradient(circle at center, #102333, #03070d);
-  background-size: cover;
+  background-size: cover, cover, cover;
   background-position: center;
 }
 
@@ -417,10 +495,10 @@
 
 .signal-bars {
   display: flex;
-  height: 42px;
+  height: 50px;
   align-items: end;
   gap: 3px;
-  margin-top: 10px;
+  margin-top: 12px;
   overflow: hidden;
 }
 
@@ -428,18 +506,21 @@
   width: 3px;
   height: var(--bar);
   background: linear-gradient(180deg, var(--gold), transparent);
+  animation: signal-pulse 980ms ease-in-out infinite alternate;
+  animation-delay: var(--delay);
+  transform-origin: bottom;
 }
 
 .bottom-nav {
-  position: absolute;
-  right: 22%;
-  bottom: 10px;
-  left: 22%;
+  position: relative;
+  z-index: 2;
   display: flex;
+  width: min(820px, calc(100% - 48px));
   min-height: 50px;
   align-items: center;
   justify-content: center;
   gap: clamp(18px, 3vw, 48px);
+  margin: -18px auto 14px;
   border: 1px solid rgba(125, 192, 221, 0.24);
   background: rgba(4, 13, 21, 0.9);
   clip-path: polygon(4% 0, 96% 0, 100% 50%, 96% 100%, 4% 100%, 0 50%);
@@ -450,6 +531,7 @@
   align-items: center;
   gap: 8px;
   color: var(--text-soft);
+  font-family: var(--display-font);
   font-size: 0.86rem;
   font-weight: 800;
   text-decoration: none;
@@ -468,6 +550,18 @@
 .icon {
   width: 24px;
   height: 24px;
+}
+
+@keyframes signal-pulse {
+  0% {
+    height: calc(var(--bar) * 0.42);
+    opacity: 0.55;
+  }
+
+  100% {
+    height: var(--bar);
+    opacity: 1;
+  }
 }
 
 @media (max-width: 1180px) {
