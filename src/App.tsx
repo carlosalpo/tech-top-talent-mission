@@ -23,7 +23,7 @@ const missions: Mission[] = [
     accent: 'gold',
     icon: 'infrastructure',
     background: '/academy/missions/mission-01-bg.webp',
-    iconPath: '/academy/icons/mission-01-icon.svg',
+    iconPath: '/academy/icons/mission-01-icon.png',
   },
   {
     id: 'resilience',
@@ -34,7 +34,7 @@ const missions: Mission[] = [
     accent: 'blue',
     icon: 'shield',
     background: '/academy/missions/mission-02-bg.webp',
-    iconPath: '/academy/icons/mission-02-icon.svg',
+    iconPath: '/academy/icons/mission-02-icon.png',
   },
   {
     id: 'hybrid-cloud',
@@ -45,7 +45,7 @@ const missions: Mission[] = [
     accent: 'cyan',
     icon: 'planet',
     background: '/academy/missions/mission-03-bg.webp',
-    iconPath: '/academy/icons/mission-03-icon.svg',
+    iconPath: '/academy/icons/mission-03-icon.png',
   },
   {
     id: 'automation',
@@ -56,7 +56,7 @@ const missions: Mission[] = [
     accent: 'violet',
     icon: 'radar',
     background: '/academy/missions/mission-04-bg.webp',
-    iconPath: '/academy/icons/mission-04-icon.svg',
+    iconPath: '/academy/icons/mission-04-icon.png',
   },
 ]
 
