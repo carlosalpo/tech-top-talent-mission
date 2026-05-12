@@ -1,110 +1,142 @@
-import { useMemo, useState } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
+import { useMemo, useState, type CSSProperties } from 'react'
+import { motion } from 'framer-motion'
 import './App.css'
 
-type MissionPhase = {
+type Mission = {
   id: string
+  number: string
   title: string
-  status: string
-  signal: number
-  altitude: string
-  copy: string
-  details: string[]
+  description: string
+  accent: 'gold' | 'blue' | 'cyan' | 'violet'
+  icon: 'infrastructure' | 'shield' | 'planet' | 'radar'
+  background: string
+  iconPath: string
 }
 
-type IconName = 'radar' | 'orbit' | 'shield' | 'rocket' | 'bolt' | 'signal'
-
-const missionPhases: MissionPhase[] = [
+const missions: Mission[] = [
   {
-    id: 'scan',
-    title: 'Talent Scan',
-    status: 'Active sweep',
-    signal: 94,
-    altitude: 'Sector LATAM-7',
-    copy: 'AI-assisted sourcing is mapping high-signal engineers, product builders, and operators across priority corridors.',
-    details: ['42 markets indexed', '18 warm pathways', '7 priority skill clusters'],
+    id: 'enterprise-dc',
+    number: '01',
+    title: 'Infraestructura de DC Enterprise',
+    description:
+      'Disenamos la base solida de nuestras operaciones. Conectividad, rendimiento y escalabilidad para misiones criticas.',
+    accent: 'gold',
+    icon: 'infrastructure',
+    background: '/academy/missions/mission-01-bg.webp',
+    iconPath: '/academy/icons/mission-01-icon.svg',
   },
   {
-    id: 'align',
-    title: 'Mission Alignment',
-    status: 'Crew sync',
-    signal: 87,
-    altitude: 'Orbit 02',
-    copy: 'Candidate motivation, compensation range, and role intent are being synchronized before the final approach.',
-    details: ['Role fit calibrated', 'Comp bands confirmed', 'Interview loops staged'],
+    id: 'resilience',
+    number: '02',
+    title: 'Alta disponibilidad, continuidad y disaster recovery',
+    description:
+      'Aseguramos nuestras misiones ante cualquier falla. Resiliencia, recuperacion y continuidad del negocio.',
+    accent: 'blue',
+    icon: 'shield',
+    background: '/academy/missions/mission-02-bg.webp',
+    iconPath: '/academy/icons/mission-02-icon.svg',
   },
   {
-    id: 'launch',
-    title: 'Launch Window',
-    status: 'Ready',
-    signal: 99,
-    altitude: 'T-minus 48h',
-    copy: 'Shortlisted talent is queued for stakeholder review with decision-ready evidence and launch recommendations.',
-    details: ['5 finalist dossiers', '2 backup trajectories', '48h decision runway'],
+    id: 'hybrid-cloud',
+    number: '03',
+    title: 'Nube hibrida e interconexion con nube publica',
+    description:
+      'Exploramos nuevos mundos. Conectamos nuestro universo local con nubes publicas de forma segura y eficiente.',
+    accent: 'cyan',
+    icon: 'planet',
+    background: '/academy/missions/mission-03-bg.webp',
+    iconPath: '/academy/icons/mission-03-icon.svg',
+  },
+  {
+    id: 'automation',
+    number: '04',
+    title: 'Integracion, automatizacion y operacion',
+    description:
+      'Integramos tecnologias y automatizamos procesos para operar como una sola tripulacion estelar.',
+    accent: 'violet',
+    icon: 'radar',
+    background: '/academy/missions/mission-04-bg.webp',
+    iconPath: '/academy/icons/mission-04-icon.svg',
   },
 ]
 
-const crewMetrics = [
-  { label: 'Mission fit', value: '96%', trend: '+14%' },
-  { label: 'Time to shortlist', value: '72h', trend: '-38%' },
-  { label: 'Signal integrity', value: '9.4', trend: '+2.1' },
-  { label: 'Talent orbit', value: '124', trend: '+31' },
-]
-
-const candidateStreams = [
-  { name: 'Frontend Systems', strength: 92, color: 'cyan' },
-  { name: 'AI Product', strength: 84, color: 'green' },
-  { name: 'Data Platforms', strength: 78, color: 'amber' },
-  { name: 'Revenue Ops', strength: 69, color: 'coral' },
-]
-
-const Icon = ({ name }: { name: IconName }) => {
+const Icon = ({ name }: { name: Mission['icon'] | 'academy' | 'profile' | 'briefing' | 'trophy' | 'folder' | 'settings' }) => {
   const common = {
     fill: 'none',
     stroke: 'currentColor',
     strokeLinecap: 'round' as const,
     strokeLinejoin: 'round' as const,
-    strokeWidth: 1.8,
+    strokeWidth: 1.7,
   }
 
   return (
-    <svg className="icon" viewBox="0 0 24 24" role="presentation" aria-hidden="true">
-      {name === 'radar' && (
+    <svg className="icon" viewBox="0 0 64 64" role="presentation" aria-hidden="true">
+      {name === 'academy' && (
         <>
-          <path {...common} d="M4 13a8 8 0 0 1 16 0" />
-          <path {...common} d="M7 13a5 5 0 0 1 10 0" />
-          <path {...common} d="M12 13l6-7" />
-          <circle {...common} cx="12" cy="13" r="2" />
-          <path {...common} d="M4 19h16" />
+          <path {...common} d="M32 5l5.8 15.6L53 14 46.4 29.2 61 36l-16 3.2L48 56 32 47.2 16 56l3-16.8L3 36l14.6-6.8L11 14l15.2 6.6L32 5Z" />
+          <circle {...common} cx="32" cy="32" r="8" />
         </>
       )}
-      {name === 'orbit' && (
+      {name === 'profile' && (
         <>
-          <circle {...common} cx="12" cy="12" r="3" />
-          <path {...common} d="M3 12c0-3 4-5.5 9-5.5S21 9 21 12s-4 5.5-9 5.5S3 15 3 12Z" />
-          <path {...common} d="M8.2 4.7c2.6-1.5 6.3.7 8.8 5s2.8 8.7.2 10.2-6.3-.7-8.8-5-2.8-8.7-.2-10.2Z" />
+          <circle {...common} cx="32" cy="22" r="9" />
+          <path {...common} d="M16 53c3.4-10 9-15 16-15s12.6 5 16 15" />
+          <circle {...common} cx="32" cy="32" r="28" />
+        </>
+      )}
+      {name === 'infrastructure' && (
+        <>
+          <path {...common} d="M18 43h28M22 43l2-18h16l2 18M27 25l5-7 5 7M15 49h34" />
+          <path {...common} d="M24 33h16M18 43l-5 6M46 43l5 6M32 18v-7" />
+          <path {...common} d="M16 20l6 4M48 20l-6 4" />
         </>
       )}
       {name === 'shield' && (
         <>
-          <path {...common} d="M12 3l7 3v5c0 4.5-2.8 8.1-7 10-4.2-1.9-7-5.5-7-10V6l7-3Z" />
-          <path {...common} d="M9 12l2 2 4-5" />
+          <path {...common} d="M32 8l22 9v14c0 13-8.8 22-22 26-13.2-4-22-13-22-26V17l22-9Z" />
+          <path {...common} d="M20 33l8 8 17-18" />
+          <path {...common} d="M13 49l38-34" />
         </>
       )}
-      {name === 'rocket' && (
+      {name === 'planet' && (
         <>
-          <path {...common} d="M13 4c3.7.5 6.5 3.3 7 7l-6 6-7-7 6-6Z" />
-          <path {...common} d="M7 10l-3 1 4 4-1 3 4-2" />
-          <circle {...common} cx="14.5" cy="9.5" r="1.5" />
+          <circle {...common} cx="30" cy="31" r="15" />
+          <path {...common} d="M7 40c8 7 27 5 42-5s20-24 13-29" />
+          <path {...common} d="M20 44c7 2 18 0 28-6" />
+          <path {...common} d="M43 44h12c4 0 7 3 7 7H35c0-4 3-7 8-7Z" />
         </>
       )}
-      {name === 'bolt' && <path {...common} d="M13 2L4 14h7l-1 8 10-13h-7l0-7Z" />}
-      {name === 'signal' && (
+      {name === 'radar' && (
         <>
-          <path {...common} d="M4 18v2" />
-          <path {...common} d="M9 14v6" />
-          <path {...common} d="M14 10v10" />
-          <path {...common} d="M19 5v15" />
+          <circle {...common} cx="32" cy="32" r="19" />
+          <circle {...common} cx="32" cy="32" r="9" />
+          <path {...common} d="M32 7v50M7 32h50M32 32l17-17" />
+          <circle {...common} cx="49" cy="15" r="4" />
+          <circle {...common} cx="20" cy="45" r="3" />
+        </>
+      )}
+      {name === 'briefing' && (
+        <>
+          <path {...common} d="M18 10h28v44H18z" />
+          <path {...common} d="M24 20h16M24 30h16M24 40h10" />
+        </>
+      )}
+      {name === 'trophy' && (
+        <>
+          <path {...common} d="M22 12h20v10c0 8-4 14-10 14S22 30 22 22V12Z" />
+          <path {...common} d="M22 18H12c0 8 4 13 12 14M42 18h10c0 8-4 13-12 14M32 36v10M24 54h16M28 46h8" />
+        </>
+      )}
+      {name === 'folder' && (
+        <>
+          <path {...common} d="M8 20h18l5 7h25v25H8z" />
+          <path {...common} d="M8 20v-6h18l5 6" />
+        </>
+      )}
+      {name === 'settings' && (
+        <>
+          <circle {...common} cx="32" cy="32" r="7" />
+          <path {...common} d="M32 8v8M32 48v8M8 32h8M48 32h8M15 15l6 6M43 43l6 6M49 15l-6 6M21 43l-6 6" />
         </>
       )}
     </svg>
@@ -112,180 +144,138 @@ const Icon = ({ name }: { name: IconName }) => {
 }
 
 function App() {
-  const [selectedPhase, setSelectedPhase] = useState(missionPhases[0])
-  const [boosted, setBoosted] = useState(false)
+  const [selectedMission, setSelectedMission] = useState(missions[0])
 
-  const readiness = useMemo(
-    () => Math.min(selectedPhase.signal + (boosted ? 4 : 0), 100),
-    [boosted, selectedPhase.signal],
+  const progress = useMemo(
+    () => missions.findIndex((mission) => mission.id === selectedMission.id) * 25,
+    [selectedMission],
   )
 
   return (
-    <main className="mission-shell">
-      <section className="hero-panel">
-        <div className="top-bar" aria-label="Mission status">
-          <div className="brand-lockup">
-            <span className="brand-mark">
-              <Icon name="orbit" />
+    <main className="academy-shell">
+      <section className="mission-screen" aria-label="Tech Top Talent Academy mission dashboard">
+        <header className="hud-header">
+          <div className="brand-panel">
+            <span className="brand-emblem">
+              <Icon name="academy" />
             </span>
-            <span>Tech Top Talent</span>
-          </div>
-          <div className="live-status">
-            <span className="pulse-dot" />
-            Mission control online
-          </div>
-        </div>
-
-        <div className="hero-grid">
-          <motion.div
-            className="command-copy"
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <p className="eyebrow">Recruiting command deck</p>
-            <h1>Tech Top Talent mission control.</h1>
-            <p className="lede">
-              Track sourcing signals, mission readiness, and launch windows from one sci-fi operations surface built for decisive hiring teams.
-            </p>
-            <div className="hero-actions">
-              <button className="primary-action" type="button" onClick={() => setBoosted((value) => !value)}>
-                <Icon name="bolt" />
-                {boosted ? 'Stabilize Boost' : 'Boost Signal'}
-              </button>
-              <a className="secondary-action" href="#mission-phases">
-                <Icon name="radar" />
-                View Phases
-              </a>
-            </div>
-          </motion.div>
-
-          <motion.div
-            className="radar-console"
-            initial={{ opacity: 0, scale: 0.94 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, delay: 0.1 }}
-          >
-            <div className="radar-orb">
-              <motion.div
-                className="radar-sweep"
-                animate={{ rotate: 360 }}
-                transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
-              />
-              <div className="orbit-ring ring-one" />
-              <div className="orbit-ring ring-two" />
-              {candidateStreams.map((stream, index) => (
-                <motion.span
-                  className={`signal-node ${stream.color}`}
-                  key={stream.name}
-                  animate={{ scale: [1, 1.25, 1], opacity: [0.75, 1, 0.75] }}
-                  transition={{ duration: 2.4, repeat: Infinity, delay: index * 0.35 }}
-                />
-              ))}
-              <div className="radar-core">
-                <strong>{readiness}%</strong>
-                <span>Ready</span>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      <section className="metrics-grid" aria-label="Mission metrics">
-        {crewMetrics.map((metric, index) => (
-          <motion.article
-            className="metric-card"
-            key={metric.label}
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, delay: index * 0.08 }}
-          >
-            <span>{metric.label}</span>
-            <strong>{metric.value}</strong>
-            <em>{metric.trend}</em>
-          </motion.article>
-        ))}
-      </section>
-
-      <section className="operations-grid" id="mission-phases">
-        <div className="phase-selector">
-          <div className="section-heading">
-            <Icon name="rocket" />
             <div>
-              <p className="eyebrow">Mission sequence</p>
-              <h2>Choose an objective</h2>
+              <strong>Tech Top Talent</strong>
+              <span>Academy</span>
             </div>
           </div>
-          <div className="phase-list">
-            {missionPhases.map((phase) => (
-              <button
-                className={phase.id === selectedPhase.id ? 'phase-button active' : 'phase-button'}
-                key={phase.id}
-                type="button"
-                onClick={() => setSelectedPhase(phase)}
-              >
-                <span>{phase.title}</span>
-                <small>{phase.status}</small>
-              </button>
-            ))}
-          </div>
-        </div>
 
-        <AnimatePresence mode="wait">
-          <motion.article
-            className="mission-card"
-            key={selectedPhase.id}
-            initial={{ opacity: 0, x: 24 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -24 }}
-            transition={{ duration: 0.35 }}
-          >
-            <div className="mission-card-header">
-              <div>
-                <p className="eyebrow">{selectedPhase.altitude}</p>
-                <h2>{selectedPhase.title}</h2>
-              </div>
-              <div className="signal-badge">
-                <Icon name="signal" />
-                {selectedPhase.signal}%
-              </div>
+          <div className="control-label">
+            <span />
+            Mission Control
+            <span />
+          </div>
+
+          <div className="profile-panel">
+            <Icon name="profile" />
+            <div>
+              <strong>Top Gun Cadet</strong>
+              <span>Nivel 01</span>
+              <small>0 / 4000 XP</small>
             </div>
-            <p>{selectedPhase.copy}</p>
-            <div className="detail-grid">
-              {selectedPhase.details.map((detail) => (
-                <span key={detail}>{detail}</span>
+          </div>
+        </header>
+
+        <section className="hero-copy">
+          <motion.h1 initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }}>
+            Arquitectos Estelares
+          </motion.h1>
+          <p>Disenamos hoy, el futuro de las misiones criticas</p>
+          <div className="mission-divider">
+            <span />
+            Selecciona tu mision
+            <span />
+          </div>
+        </section>
+
+        <section className="mission-grid" aria-label="Misiones disponibles">
+          {missions.map((mission, index) => (
+            <motion.article
+              className={`mission-tile ${mission.accent} ${selectedMission.id === mission.id ? 'selected' : ''}`}
+              key={mission.id}
+              style={{ '--mission-bg': `url(${mission.background})` } as CSSProperties}
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.45, delay: index * 0.08 }}
+            >
+              <span className="mission-number">{mission.number}</span>
+              <div className="mission-art" aria-hidden="true">
+                <img
+                  src={mission.iconPath}
+                  alt=""
+                  onError={(event) => event.currentTarget.classList.add('asset-missing')}
+                />
+                <span className="fallback-icon">
+                  <Icon name={mission.icon} />
+                </span>
+              </div>
+              <h2>{mission.title}</h2>
+              <p>{mission.description}</p>
+              <button type="button" onClick={() => setSelectedMission(mission)}>
+                Iniciar mision
+              </button>
+            </motion.article>
+          ))}
+        </section>
+
+        <section className="lower-console">
+          <div className="progress-panel">
+            <strong>Tu progreso</strong>
+            <div className="progress-row">
+            <div className="progress-ring" style={{ '--progress': `${progress * 3.6}deg` } as CSSProperties}>
+                <span>{progress}%</span>
+              </div>
+              <ul>
+                <li>0 / 4 misiones completadas</li>
+                <li>0 / 12 desafios superados</li>
+                <li>0 / 48 logros obtenidos</li>
+                <li>Rango: Cadete Estelar</li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="viewport-panel" aria-label="Vista de cabina" />
+
+          <div className="comms-panel">
+            <strong>Comunicaciones</strong>
+            <p>
+              Bienvenido Cadete. Tu entrenamiento comienza ahora. La galaxia necesita arquitectos preparados para cualquier mision.
+            </p>
+            <div className="signal-bars">
+              {Array.from({ length: 38 }).map((_, index) => (
+                <span key={index} style={{ '--bar': `${18 + ((index * 13) % 32)}px` } as CSSProperties} />
               ))}
             </div>
-          </motion.article>
-        </AnimatePresence>
-      </section>
-
-      <section className="stream-panel" aria-label="Talent streams">
-        <div className="section-heading">
-          <Icon name="shield" />
-          <div>
-            <p className="eyebrow">Signal telemetry</p>
-            <h2>Talent streams</h2>
           </div>
-        </div>
-        <div className="stream-list">
-          {candidateStreams.map((stream) => (
-            <div className="stream-row" key={stream.name}>
-              <div>
-                <strong>{stream.name}</strong>
-                <span>{stream.strength}% signal strength</span>
-              </div>
-              <div className="stream-track">
-                <motion.span
-                  className={stream.color}
-                  initial={{ width: 0 }}
-                  animate={{ width: `${stream.strength}%` }}
-                  transition={{ duration: 0.8 }}
-                />
-              </div>
-            </div>
-          ))}
-        </div>
+        </section>
+
+        <nav className="bottom-nav" aria-label="Navegacion principal">
+          <a href="#tablero" className="active">
+            <Icon name="academy" />
+            Tablero
+          </a>
+          <a href="#ranking">
+            <Icon name="trophy" />
+            Ranking
+          </a>
+          <a href="#recursos">
+            <Icon name="folder" />
+            Recursos
+          </a>
+          <a href="#briefing">
+            <Icon name="briefing" />
+            Briefing
+          </a>
+          <a href="#ajustes">
+            <Icon name="settings" />
+            Ajustes
+          </a>
+        </nav>
       </section>
     </main>
   )
