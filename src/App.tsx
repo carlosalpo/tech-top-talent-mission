@@ -203,22 +203,24 @@ function App() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.45, delay: index * 0.08 }}
             >
-              <span className="mission-number">{mission.number}</span>
-              <div className="mission-art" aria-hidden="true">
-                <img
-                  src={mission.iconPath}
-                  alt=""
-                  onError={(event) => event.currentTarget.classList.add('asset-missing')}
-                />
-                <span className="fallback-icon">
-                  <Icon name={mission.icon} />
-                </span>
+              <div className="mission-content">
+                <span className="mission-number">{mission.number}</span>
+                <div className="mission-art" aria-hidden="true">
+                  <img
+                    src={mission.iconPath}
+                    alt=""
+                    onError={(event) => event.currentTarget.classList.add('asset-missing')}
+                  />
+                  <span className="fallback-icon">
+                    <Icon name={mission.icon} />
+                  </span>
+                </div>
+                <h2>{mission.title}</h2>
+                <p>{mission.description}</p>
+                <button type="button" onClick={() => setSelectedMission(mission)}>
+                  Iniciar mision
+                </button>
               </div>
-              <h2>{mission.title}</h2>
-              <p>{mission.description}</p>
-              <button type="button" onClick={() => setSelectedMission(mission)}>
-                Iniciar mision
-              </button>
             </motion.article>
           ))}
         </section>
