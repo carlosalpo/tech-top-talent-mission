@@ -157,7 +157,14 @@ function App() {
         <header className="hud-header">
           <div className="brand-panel">
             <span className="brand-emblem">
-              <Icon name="academy" />
+              <img
+                src="/academy/brand/tech-top-talent-mark.png"
+                alt=""
+                onError={(event) => event.currentTarget.classList.add('asset-missing')}
+              />
+              <span className="fallback-icon">
+                <Icon name="academy" />
+              </span>
             </span>
             <div>
               <strong>Tech Top Talent</strong>
@@ -229,7 +236,7 @@ function App() {
           <div className="progress-panel">
             <strong>Tu progreso</strong>
             <div className="progress-row">
-            <div className="progress-ring" style={{ '--progress': `${progress * 3.6}deg` } as CSSProperties}>
+              <div className="progress-ring" style={{ '--progress': `${progress * 3.6}deg` } as CSSProperties}>
                 <span>{progress}%</span>
               </div>
               <ul>
@@ -249,8 +256,16 @@ function App() {
               Bienvenido Cadete. Tu entrenamiento comienza ahora. La galaxia necesita arquitectos preparados para cualquier mision.
             </p>
             <div className="signal-bars">
-              {Array.from({ length: 38 }).map((_, index) => (
-                <span key={index} style={{ '--bar': `${18 + ((index * 13) % 32)}px` } as CSSProperties} />
+              {Array.from({ length: 42 }).map((_, index) => (
+                <span
+                  key={index}
+                  style={
+                    {
+                      '--bar': `${18 + ((index * 13) % 34)}px`,
+                      '--delay': `${index * 54}ms`,
+                    } as CSSProperties
+                  }
+                />
               ))}
             </div>
           </div>
