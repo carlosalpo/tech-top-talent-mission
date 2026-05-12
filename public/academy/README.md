@@ -12,7 +12,6 @@ Coloca aqui los visuales finales del dashboard. El codigo ya referencia estos no
 | `missions/mission-03-bg.webp` | Fondo interno de la tarjeta 03 | `640 x 900 px` |
 | `missions/mission-04-bg.webp` | Fondo interno de la tarjeta 04 | `640 x 900 px` |
 | `panels/cockpit-preview.webp` | Imagen panoramica del panel inferior central | `1280 x 360 px` |
-| `backgrounds/section-04-cockpit.webp` | Fallback del panel inferior central si no existe `cockpit-preview.webp` | `1280 x 360 px` |
 
 ## Iconos de misiones
 
